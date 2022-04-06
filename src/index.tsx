@@ -1,14 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { createRoot } from 'react-dom/client';
 import App from './App';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './common/theme';
 
+const container = document.getElementById('root');
+const root = createRoot(container!);
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+root.render(
+  <ThemeProvider theme={theme}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ThemeProvider>
 );
 
-
+export default App;

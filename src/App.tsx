@@ -1,9 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { GlobalStyle } from './common/reset';
+import Router from './routes/router';
 
-function App() {
-
-}
+const App = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <Router />
+    </>
+  );
+};
 
 export default App;
