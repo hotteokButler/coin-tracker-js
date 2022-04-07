@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-  width: 100%;
+  width: 95%;
   max-width: 480px;
   margin: 0 auto;
 `;
