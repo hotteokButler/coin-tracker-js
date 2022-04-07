@@ -3,6 +3,7 @@
 ## skills
 
 - ReactJs
+- TypeScript
 - styled-components
 - react-query
 - postman
