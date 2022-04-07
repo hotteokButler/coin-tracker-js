@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
 `;
 
-const Header = styled.header`
+export const Header = styled.header`
   margin: 10px 0 20px;
 `;
 
@@ -25,7 +25,8 @@ const Coin = styled.li`
   color: ${(props) => props.theme.bgColor};
   transition: 0.2s ease-in;
   a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 1.5em 1em;
     font-size: 1.3rem;
   }
@@ -37,19 +38,28 @@ const Coin = styled.li`
   }
 `;
 
-const Title = styled.h1`
+const CoinImg = styled.figure`
+  margin: 0 15px 0 0;
+  width: 35px;
+  height: 35px;
+`;
+const CoinName = styled.p`
+  width: calc(100% - 50px);
+  font-size: 1.1em;
+`;
+export const Title = styled.h1`
   padding: 1em;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: ${(props) => props.theme.accentColor};
 `;
 
-const Loader = styled.p`
+export const Loader = styled.p`
   font-size: 2rem;
   text-align: center;
 `;
 
-const spinnerRotate = keyframes`
+export const spinnerRotate = keyframes`
   from {
     transform: rotate(0deg);
   }
@@ -58,7 +68,7 @@ const spinnerRotate = keyframes`
   }
 `;
 
-const LoadingSpinner = styled.div`
+export const LoadingSpinner = styled.div`
   margin: 20px auto;
   width: 60px;
   height: 60px;
@@ -89,7 +99,7 @@ const Coins = () => {
         redirect: 'follow',
       });
       const json = await response.json();
-      setCoins(json.slice(0, 30));
+      setCoins(json.slice(0, 40));
       setLoading(false);
     })();
   }, []);
@@ -109,7 +119,12 @@ const Coins = () => {
           <CoinsList>
             {coins.map((coin) => (
               <Coin key={coin.id}>
-                <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+                <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+                  <CoinImg>
+                    <img src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`} alt="" />
+                  </CoinImg>
+                  <CoinName>{coin.name} &rarr;</CoinName>
+                </Link>
               </Coin>
             ))}
           </CoinsList>
