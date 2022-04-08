@@ -7,8 +7,13 @@ import { ThemeProvider } from 'styled-components';
 import { DarkTheme, LightTheme } from './common/theme';
 
 const App = () => {
+  const [theme, setTheme] = useState(false);
+  useEffect(() => {
+    setTheme(localStorage.getItem('themeMode') === 'dark' ? true : false);
+  }, [theme]);
+
   return (
-    <ThemeProvider theme={localStorage.getItem('themeMode') === 'dark' ? DarkTheme : LightTheme}>
+    <ThemeProvider theme={theme ? DarkTheme : LightTheme}>
       <GlobalStyle />
       <HelmetProvider>
         <Router />

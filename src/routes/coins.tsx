@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -115,22 +115,20 @@ interface ICoin {
 const Coins = () => {
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
   const [themeMode, setThemeMode] = useState('');
-  const [iconMode, setIconMode] = useState('');
+  const [iconMode, setIconMode] = useState(true);
 
   const setToggleData = (event: object): any => {
     const nowTheme = localStorage.getItem('themeMode') as string;
     if (nowTheme === '' || nowTheme === 'light') {
       setThemeMode('dark');
-      setIconMode('fa-sun');
+      localStorage.setItem('themeMode', themeMode);
+      setIconMode(true);
     } else if (nowTheme === 'dark') {
       setThemeMode('light');
-      setIconMode('fa-moon');
+      localStorage.setItem('themeMode', themeMode);
+      setIconMode(false);
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem('themeMode', themeMode);
-  }, [themeMode, iconMode]);
 
   return (
     <Container>
@@ -141,7 +139,7 @@ const Coins = () => {
       <Header>
         <Title>Coins</Title>
         <ThemeToggle onClick={setToggleData}>
-          <i className={`fa-solid ${iconMode}`}></i>
+          <i className={`fa-solid ${iconMode ? 'fa-sun' : 'fa-moon'}`}></i>
         </ThemeToggle>
       </Header>
       <CoinLiSection>
