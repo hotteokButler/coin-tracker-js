@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/hotteokButler/coin-tracker-js/static/js/main.ec3e7c32.js",
+    "index.html": "/hotteokButler/coin-tracker-js/index.html",
+    "main.ec3e7c32.js.map": "/hotteokButler/coin-tracker-js/static/js/main.ec3e7c32.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ec3e7c32.js"
+  ]
+}
