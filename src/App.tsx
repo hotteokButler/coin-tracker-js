@@ -8,7 +8,7 @@ import { DarkTheme, LightTheme } from './common/theme';
 
 const App = () => {
   return (
-    <ThemeProvider theme={LightTheme}>
+    <ThemeProvider theme={localStorage.getItem('themeMode') === 'dark' ? DarkTheme : LightTheme}>
       <GlobalStyle />
       <HelmetProvider>
         <Router />

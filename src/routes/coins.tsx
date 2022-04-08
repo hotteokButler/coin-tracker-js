@@ -115,19 +115,22 @@ interface ICoin {
 const Coins = () => {
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
   const [themeMode, setThemeMode] = useState('');
+  const [iconMode, setIconMode] = useState('');
 
   const setToggleData = (event: object): any => {
     const nowTheme = localStorage.getItem('themeMode') as string;
     if (nowTheme === '' || nowTheme === 'light') {
       setThemeMode('dark');
+      setIconMode('fa-sun');
     } else if (nowTheme === 'dark') {
       setThemeMode('light');
+      setIconMode('fa-moon');
     }
   };
 
   useEffect(() => {
     localStorage.setItem('themeMode', themeMode);
-  }, [themeMode]);
+  }, [themeMode, iconMode]);
 
   return (
     <Container>
@@ -138,7 +141,7 @@ const Coins = () => {
       <Header>
         <Title>Coins</Title>
         <ThemeToggle onClick={setToggleData}>
-          <i className="fa-solid fa-sun"></i>
+          <i className={`fa-solid ${iconMode}`}></i>
         </ThemeToggle>
       </Header>
       <CoinLiSection>

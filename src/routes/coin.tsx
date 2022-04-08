@@ -133,6 +133,24 @@ const TabButtons = styled.div`
   margin: 0 0 2em;
 `;
 
+const HomeButton = styled.button`
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background-color: ${(props) => props.theme.liBgColor};
+  a {
+    display: block;
+    color: ${(props) => props.theme.textColor};
+  }
+`;
+
 const Coin = () => {
   const { coinId } = useParams();
   const { state } = useLocation() as IRouteState;
@@ -155,7 +173,14 @@ const Coin = () => {
         <title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</title>
       </Helmet>
       <Header>
-        <Title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</Title>
+        <Title>
+          {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
+          <HomeButton>
+            <Link to="/">
+              <i className="fa-solid fa-house"></i>
+            </Link>
+          </HomeButton>
+        </Title>
       </Header>
       {loading ? (
         <>
