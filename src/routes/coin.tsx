@@ -146,6 +146,7 @@ const Coin = () => {
   );
 
   const loading = infoLoading || tickersLoading;
+
   return (
     <Container>
       <Header>
@@ -199,7 +200,7 @@ const Coin = () => {
               </Tab>
             </TabButtons>
 
-            <Outlet />
+            <Outlet context={coinId} />
           </PriceAndChartSection>
           {/* PriceAndChartSection */}
         </>
