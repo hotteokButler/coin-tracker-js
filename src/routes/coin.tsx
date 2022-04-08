@@ -143,10 +143,7 @@ const Coin = () => {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<ITikersData>(
     ['tickers', coinId],
-    () => fetchCoinTickers(coinId!),
-    {
-      refetchInterval: 5000,
-    }
+    () => fetchCoinTickers(coinId!)
   );
 
   const loading = infoLoading || tickersLoading;

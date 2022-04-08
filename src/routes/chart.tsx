@@ -23,12 +23,8 @@ interface ICoinHistory {
 
 const Chart = () => {
   const coinId = useOutletContext<IChartProps['coinId']>();
-  const { isLoading, data } = useQuery<ICoinHistory[]>(
-    ['ohlcv', coinId],
-    () => fetchCoinHistory(coinId!),
-    {
-      refetchInterval: 10000,
-    }
+  const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () =>
+    fetchCoinHistory(coinId!)
   );
   return (
     <div>
@@ -36,11 +32,18 @@ const Chart = () => {
         <Loader>Loading chart...</Loader>
       ) : (
         <ApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
-              name: 'Close Price', //
-              data: data?.map((price) => price.close) ?? [], //
+              data: data?.map((price) => [
+                price.time_open,
+                [
+                  price.open.toFixed(3),
+                  price.high.toFixed(3),
+                  price.low.toFixed(3),
+                  price.close.toFixed(3),
+                ],
+              ]) as [],
             },
           ]}
           options={{
@@ -54,12 +57,10 @@ const Chart = () => {
               background: 'transparent',
             }, //
             grid: {
-              show: false,
+              borderColor: '#90a4aeab',
             },
-            stroke: { curve: 'smooth' }, //
             xaxis: {
               type: 'datetime',
-              categories: data?.map((date) => date.time_open),
               axisBorder: {
                 show: false,
               },
@@ -72,18 +73,16 @@ const Chart = () => {
             },
             yaxis: {
               show: false,
-            },
-            fill: {
-              type: 'gradient',
-              colors: ['#fbe7c6s'],
-              gradient: {
-                gradientToColors: ['#ffaebc'],
-                stops: [0, 100],
+              tooltip: {
+                enabled: true,
               },
             },
-            tooltip: {
-              y: {
-                formatter: (value: any) => `$${value.toFixed(2)}`,
+            plotOptions: {
+              candlestick: {
+                colors: {
+                  upward: '#df5a46',
+                  downward: '#1178e7',
+                },
               },
             },
           }}
