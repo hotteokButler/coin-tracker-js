@@ -23,8 +23,12 @@ interface ICoinHistory {
 
 const Chart = () => {
   const coinId = useOutletContext<IChartProps['coinId']>();
-  const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () =>
-    fetchCoinHistory(coinId!)
+  const { isLoading, data } = useQuery<ICoinHistory[]>(
+    ['ohlcv', coinId],
+    () => fetchCoinHistory(coinId!),
+    {
+      refetchInterval: 10000,
+    }
   );
   return (
     <div>
@@ -79,7 +83,7 @@ const Chart = () => {
             },
             tooltip: {
               y: {
-                formatter: (value) => `$${value.toFixed(2)}`,
+                formatter: (value: any) => `$${value.toFixed(2)}`,
               },
             },
           }}

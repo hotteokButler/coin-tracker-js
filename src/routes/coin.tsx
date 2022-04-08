@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link, Outlet, useMatch } from 'react-router-dom';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -142,13 +143,20 @@ const Coin = () => {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<ITikersData>(
     ['tickers', coinId],
-    () => fetchCoinTickers(coinId!)
+    () => fetchCoinTickers(coinId!),
+    {
+      refetchInterval: 5000,
+    }
   );
 
   const loading = infoLoading || tickersLoading;
 
   return (
     <Container>
+      <Helmet>
+        <link rel="icon" href={`https://cryptocurrencyliveprices.com/img/${coinId}.png`} />
+        <title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</Title>
       </Header>
@@ -170,8 +178,8 @@ const Coin = () => {
                 <OverviewText>{`$${infoData?.symbol || 'No Data'}`}</OverviewText>
               </OverviewItem>
               <OverviewItem>
-                <OverviewTitle>OPEN SOURCE :</OverviewTitle>
-                <OverviewText>{infoData?.open_source ? 'YES' : 'NO'}</OverviewText>
+                <OverviewTitle>PRICE :</OverviewTitle>
+                <OverviewText>{`$${tickersData?.quotes.USD.price.toFixed(2)}`}</OverviewText>
               </OverviewItem>
             </Overview>
             {/* coin-rank,symbol,opensource */}

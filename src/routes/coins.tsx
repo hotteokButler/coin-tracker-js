@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
@@ -95,6 +96,10 @@ const Coins = () => {
 
   return (
     <Container>
+      <Helmet>
+        <link rel="icon" href="./favicon.ico" />
+        <title>Coins</title>
+      </Helmet>
       <Header>
         <Title>Coins</Title>
       </Header>
