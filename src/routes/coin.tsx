@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { Link, Outlet, useMatch } from 'react-router-dom';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { fetchCoinInfo, fetchCoinTickers } from '../service/coinApi';
 import { Container, Header, Title, Loader, LoadingSpinner } from './coins';
 
 //type interface
@@ -33,7 +35,7 @@ interface IInfoData {
 }
 //보통 interface에 정의되는 variable 이름 앞에 I를 붙여주는 관례가 있음
 
-interface IPriceData {
+interface ITikersData {
   id: string;
   name: string;
   symbol: string;
@@ -131,45 +133,23 @@ const TabButtons = styled.div`
 `;
 
 const Coin = () => {
-  const [loading, setLoading] = useState(true);
   const { coinId } = useParams();
   const { state } = useLocation() as IRouteState;
-  const [info, setInfo] = useState<IInfoData>();
-  const [price, setPrice] = useState<IPriceData>();
   const priceMath = useMatch('/:coinId/price');
   const chartMath = useMatch('/:coinId/chart');
+  const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(['info', coinId], () =>
+    fetchCoinInfo(coinId!)
+  );
+  const { isLoading: tickersLoading, data: tickersData } = useQuery<ITikersData>(
+    ['tickers', coinId],
+    () => fetchCoinTickers(coinId!)
+  );
 
-  console.log(chartMath);
-
-  useEffect(() => {
-    (async () => {
-      //infoData get from coinId
-      const infoData = await (
-        await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`, {
-          method: 'GET',
-          redirect: 'follow',
-        })
-      ).json();
-
-      //priceData get from coinId
-      const priceData = await (
-        await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`, {
-          method: 'GET',
-          redirect: 'follow',
-        })
-      ).json();
-
-      //Set each data
-      setInfo(infoData);
-      setPrice(priceData);
-      setLoading(false);
-    })();
-  }, [coinId]);
-
+  const loading = infoLoading || tickersLoading;
   return (
     <Container>
       <Header>
-        <Title>{state?.name ? state.name : loading ? 'Loading...' : info?.name}</Title>
+        <Title>{state?.name ? state.name : loading ? 'Loading...' : infoData?.name}</Title>
       </Header>
       {loading ? (
         <>
@@ -182,28 +162,28 @@ const Coin = () => {
             <Overview>
               <OverviewItem>
                 <OverviewTitle>RANK :</OverviewTitle>
-                <OverviewText>{info?.rank || 'No Data'}</OverviewText>
+                <OverviewText>{infoData?.rank || 'No Data'}</OverviewText>
               </OverviewItem>
               <OverviewItem>
                 <OverviewTitle>SYMBOL :</OverviewTitle>
-                <OverviewText>{`$${info?.symbol || 'No Data'}`}</OverviewText>
+                <OverviewText>{`$${infoData?.symbol || 'No Data'}`}</OverviewText>
               </OverviewItem>
               <OverviewItem>
                 <OverviewTitle>OPEN SOURCE :</OverviewTitle>
-                <OverviewText>{info?.open_source ? 'YES' : 'NO'}</OverviewText>
+                <OverviewText>{infoData?.open_source ? 'YES' : 'NO'}</OverviewText>
               </OverviewItem>
             </Overview>
             {/* coin-rank,symbol,opensource */}
-            <OverviewDescription>{info?.description || 'No Data'}</OverviewDescription>
+            <OverviewDescription>{infoData?.description || 'No Data'}</OverviewDescription>
             {/* discription */}
             <Overview>
               <OverviewItem>
                 <OverviewTitle>TOTAL SUPLY :</OverviewTitle>
-                <OverviewText>{price?.total_supply || 'No Data'}</OverviewText>
+                <OverviewText>{tickersData?.total_supply || 'No Data'}</OverviewText>
               </OverviewItem>
               <OverviewItem>
                 <OverviewTitle>MAX SUPPLY :</OverviewTitle>
-                <OverviewText>{price?.max_supply || 'No Data'}</OverviewText>
+                <OverviewText>{tickersData?.max_supply || 'No Data'}</OverviewText>
               </OverviewItem>
             </Overview>
             {/* coin-rank,symbol,opensource */}
