@@ -8,5 +8,6 @@ declare module 'styled-components' {
     liBgColor?: string;
     liTextColor?: string;
     toggleColor: string;
+    priceList: string;
   }
 }

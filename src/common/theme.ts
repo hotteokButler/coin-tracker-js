@@ -7,6 +7,7 @@ export const DarkTheme: DefaultTheme = {
   liBgColor: '#232323',
   liTextColor: '#232323',
   toggleColor: '#fefefe',
+  priceList: '#fcfcfc',
 };
 export const LightTheme: DefaultTheme = {
   bgColor: '#FDFAF6',
@@ -15,4 +16,5 @@ export const LightTheme: DefaultTheme = {
   liBgColor: '#E4EFE7',
   liTextColor: '#232323',
   toggleColor: '#fefefe',
+  priceList: '#FEF5ED',
 };

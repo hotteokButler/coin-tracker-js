@@ -22,7 +22,7 @@ interface ICoinHistory {
 }
 
 const Chart = () => {
-  const coinId = useOutletContext<IChartProps['coinId']>();
+  const { coinId } = useOutletContext<IChartProps>();
   const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () =>
     fetchCoinHistory(coinId!)
   );

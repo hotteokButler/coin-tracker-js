@@ -80,7 +80,7 @@ const OverviewSection = styled.section`
 
 const PriceAndChartSection = styled(OverviewSection)``;
 
-const Overview = styled.dl`
+export const Overview = styled.dl`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,7 +205,12 @@ const Coin = () => {
               </Tab>
             </TabButtons>
 
-            <Outlet context={coinId} />
+            <Outlet
+              context={{
+                coinId,
+                priceData: tickersData?.quotes.USD,
+              }}
+            />
           </PriceAndChartSection>
           {/* PriceAndChartSection */}
         </>
