@@ -2,7 +2,7 @@
   "name": "coin-traker",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/hotteokButler/coin-traker",
+  "homepage": "https://github.com/hotteokButler/coin-tracker-js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
     "@testing-library/jest-dom": "^5.14.1",
