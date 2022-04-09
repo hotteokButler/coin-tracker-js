@@ -16,26 +16,6 @@ export const Header = styled.header`
   margin: 10px 0 20px;
 `;
 
-export const ThemeToggle = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  transform: translate(0, -50%);
-  background-color: ${(props) => props.theme.accentColor};
-  cursor: pointer;
-  .fa-sun,
-  .fa-moon {
-    font-size: 1.5em;
-    color: ${(props) => props.theme.toggleColor};
-  }
-`;
-
 const CoinLiSection = styled.section``;
 
 const CoinsList = styled.ul`
@@ -114,21 +94,6 @@ interface ICoin {
 
 const Coins = () => {
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
-  const [themeMode, setThemeMode] = useState('');
-  const [iconMode, setIconMode] = useState(true);
-
-  const setToggleData = (event: object): any => {
-    const nowTheme = localStorage.getItem('themeMode') as string;
-    if (nowTheme === '' || nowTheme === 'light') {
-      setThemeMode('dark');
-      localStorage.setItem('themeMode', themeMode);
-      setIconMode(true);
-    } else if (nowTheme === 'dark') {
-      setThemeMode('light');
-      localStorage.setItem('themeMode', themeMode);
-      setIconMode(false);
-    }
-  };
 
   return (
     <Container>
@@ -138,9 +103,6 @@ const Coins = () => {
       </Helmet>
       <Header>
         <Title>Coins</Title>
-        <ThemeToggle onClick={setToggleData}>
-          <i className={`fa-solid ${iconMode ? 'fa-sun' : 'fa-moon'}`}></i>
-        </ThemeToggle>
       </Header>
       <CoinLiSection>
         {isLoading ? (

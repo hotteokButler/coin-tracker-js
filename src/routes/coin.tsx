@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link, Outlet, useMatch } from 'react-router-dom';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../service/coinApi';
 import { Container, Header, Title, Loader, LoadingSpinner } from './coins';
