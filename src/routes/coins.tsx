@@ -98,7 +98,6 @@ const Coins = () => {
   return (
     <Container>
       <Helmet>
-        <link rel="icon" href="./favicon.ico" />
         <title>Coins</title>
       </Helmet>
       <Header>
