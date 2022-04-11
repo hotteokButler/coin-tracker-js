@@ -8,7 +8,7 @@ import { DarkTheme, LightTheme } from './common/theme';
 
 export const ThemeToggle = styled.button`
   position: absolute;
-  top: 10%;
+  top: 4.5em;
   right: 50%;
   display: flex;
   justify-content: center;
@@ -16,7 +16,7 @@ export const ThemeToggle = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  transform: translate(235px, -50%);
+  transform: translate(230px, -50%);
   background-color: ${(props) => props.theme.accentColor};
   cursor: pointer;
   .fa-sun,
