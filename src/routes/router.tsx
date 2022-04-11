@@ -4,7 +4,12 @@ import Coin from './coin';
 import Coins from './coins';
 import Price from './price';
 
-const Router = () => {
+interface IRouterProps {
+  changeTheme: () => void;
+  themeIcon: boolean;
+}
+
+const Router = ({ changeTheme, themeIcon }: IRouterProps) => {
   return (
     <BrowserRouter>
       <Routes>
@@ -12,7 +17,7 @@ const Router = () => {
           <Route path="/:coinId/price" element={<Price />} />
           <Route path="/:coinId/chart" element={<Chart />} />
         </Route>
-        <Route path="/" element={<Coins />} />
+        <Route path="/" element={<Coins changeTheme={changeTheme} themeIcon={themeIcon} />} />
       </Routes>
     </BrowserRouter>
   );

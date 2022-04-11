@@ -82,6 +82,26 @@ export const LoadingSpinner = styled.div`
   animation: ${spinnerRotate} 2s linear infinite;
 `;
 
+export const ThemeToggle = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform: translate(0, -50%);
+  background-color: ${(props) => props.theme.accentColor};
+  cursor: pointer;
+  .fa-sun,
+  .fa-moon {
+    font-size: 1.5em;
+    color: ${(props) => props.theme.toggleColor};
+  }
+`;
+
 interface ICoin {
   id: string;
   name: string;
@@ -92,7 +112,11 @@ interface ICoin {
   type: string;
 }
 
-const Coins = () => {
+interface ICoinsProps {
+  changeTheme: () => void;
+  themeIcon: boolean;
+}
+const Coins = ({ changeTheme, themeIcon }: ICoinsProps) => {
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
 
   return (
@@ -102,6 +126,9 @@ const Coins = () => {
       </Helmet>
       <Header>
         <Title>Coins</Title>
+        <ThemeToggle onClick={changeTheme}>
+          <span>{themeIcon ? '🌚' : '🌝'}</span>
+        </ThemeToggle>
       </Header>
       <CoinLiSection>
         {isLoading ? (
