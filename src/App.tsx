@@ -5,21 +5,17 @@ import Router from './routes/router';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeProvider } from 'styled-components';
 import { DarkTheme, LightTheme } from './common/theme';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isDarkAtom } from './common/atom';
 
 const App = () => {
-  const [isDark, setIsDark] = useState<boolean>(true);
-  const [themeIcon, setThemeIcon] = useState<boolean>(true);
-
-  const changeTheme = () => {
-    setThemeIcon((current) => !current);
-    setIsDark((current) => !current);
-  };
+  const isDark = useRecoilValue(isDarkAtom);
 
   return (
     <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
       <GlobalStyle />
       <HelmetProvider>
-        <Router changeTheme={changeTheme} themeIcon={themeIcon!} isDark={isDark!} />
+        <Router />
       </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </ThemeProvider>

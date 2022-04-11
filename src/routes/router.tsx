@@ -4,24 +4,17 @@ import Coin from './coin';
 import Coins from './coins';
 import Price from './price';
 
-interface IRouterProps {
-  changeTheme: () => void;
-  themeIcon: boolean;
-  isDark: boolean;
-}
+interface IRouterProps {}
 
-const Router = ({ changeTheme, themeIcon, isDark }: IRouterProps) => {
+const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/:coinId"
-          element={<Coin isDark={isDark} changeTheme={changeTheme} themeIcon={themeIcon} />}
-        >
+        <Route path="/:coinId" element={<Coin />}>
           <Route path="/:coinId/price" element={<Price />} />
           <Route path="/:coinId/chart" element={<Chart />} />
         </Route>
-        <Route path="/" element={<Coins changeTheme={changeTheme} themeIcon={themeIcon} />} />
+        <Route path="/" element={<Coins />} />
       </Routes>
     </BrowserRouter>
   );

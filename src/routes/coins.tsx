@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled, { keyframes } from 'styled-components';
+import { toggleDarkAtom } from '../common/atom';
 import { fetchCoins } from '../service/coinApi';
 
 export const Container = styled.div`
@@ -112,12 +113,13 @@ interface ICoin {
   type: string;
 }
 
-export interface ICoinsProps {
-  changeTheme: () => void;
-  themeIcon: boolean;
-  isDark?: boolean;
-}
-const Coins = ({ changeTheme, themeIcon }: ICoinsProps) => {
+export interface ICoinsProps {}
+
+const Coins = () => {
+  const [isDark, setDark] = useRecoilState(toggleDarkAtom);
+  const toggleDarkMode = () => {
+    setDark(isDark);
+  };
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
 
   return (
@@ -127,8 +129,8 @@ const Coins = ({ changeTheme, themeIcon }: ICoinsProps) => {
       </Helmet>
       <Header>
         <Title>Coins</Title>
-        <ThemeToggle onClick={changeTheme}>
-          <span>{themeIcon ? '🌚' : '🌝'}</span>
+        <ThemeToggle onClick={toggleDarkMode}>
+          <span>{isDark ? '🌚' : '🌝'}</span>
         </ThemeToggle>
       </Header>
       <CoinLiSection>

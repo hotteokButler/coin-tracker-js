@@ -2,7 +2,9 @@ import { Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link, Outlet, useMatch } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { toggleDarkAtom } from '../common/atom';
 import { fetchCoinInfo, fetchCoinTickers } from '../service/coinApi';
 import {
   Container,
@@ -158,7 +160,7 @@ const HomeButton = styled.button`
   }
 `;
 
-const Coin = ({ changeTheme, isDark, themeIcon }: ICoinPorps) => {
+const Coin = () => {
   const { coinId } = useParams();
   const { state } = useLocation() as IRouteState;
   const priceMath = useMatch('/:coinId/price');
@@ -172,6 +174,11 @@ const Coin = ({ changeTheme, isDark, themeIcon }: ICoinPorps) => {
   );
 
   const loading = infoLoading || tickersLoading;
+
+  const [isDark, setDark] = useRecoilState(toggleDarkAtom);
+  const toggleDarkMode = () => {
+    setDark(isDark);
+  };
 
   return (
     <Container>
@@ -188,8 +195,8 @@ const Coin = ({ changeTheme, isDark, themeIcon }: ICoinPorps) => {
             </Link>
           </HomeButton>
         </Title>
-        <ThemeToggle onClick={changeTheme}>
-          <span>{themeIcon ? '🌚' : '🌝'}</span>
+        <ThemeToggle onClick={toggleDarkMode}>
+          <span>{isDark ? '🌚' : '🌝'}</span>
         </ThemeToggle>
       </Header>
       {loading ? (
@@ -244,7 +251,6 @@ const Coin = ({ changeTheme, isDark, themeIcon }: ICoinPorps) => {
               context={{
                 coinId,
                 priceData: tickersData?.quotes.USD,
-                checkDark: isDark,
               }}
             />
           </PriceAndChartSection>
