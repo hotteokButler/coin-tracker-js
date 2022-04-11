@@ -4,7 +4,15 @@ import { Link, Outlet, useMatch } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../service/coinApi';
-import { Container, Header, Title, Loader, LoadingSpinner } from './coins';
+import {
+  Container,
+  Header,
+  Title,
+  Loader,
+  LoadingSpinner,
+  ThemeToggle,
+  ICoinsProps as ICoinPorps,
+} from './coins';
 
 //type interface
 interface IRouteState {
@@ -150,7 +158,7 @@ const HomeButton = styled.button`
   }
 `;
 
-const Coin = () => {
+const Coin = ({ changeTheme, isDark, themeIcon }: ICoinPorps) => {
   const { coinId } = useParams();
   const { state } = useLocation() as IRouteState;
   const priceMath = useMatch('/:coinId/price');
@@ -180,6 +188,9 @@ const Coin = () => {
             </Link>
           </HomeButton>
         </Title>
+        <ThemeToggle onClick={changeTheme}>
+          <span>{themeIcon ? '🌚' : '🌝'}</span>
+        </ThemeToggle>
       </Header>
       {loading ? (
         <>
@@ -233,6 +244,7 @@ const Coin = () => {
               context={{
                 coinId,
                 priceData: tickersData?.quotes.USD,
+                checkDark: isDark,
               }}
             />
           </PriceAndChartSection>

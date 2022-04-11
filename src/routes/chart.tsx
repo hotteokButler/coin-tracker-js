@@ -7,6 +7,7 @@ import { Loader } from './coins';
 
 interface IChartProps {
   coinId: string;
+  isDark: boolean;
 }
 
 interface ICoinHistory {
@@ -22,7 +23,7 @@ interface ICoinHistory {
 }
 
 const Chart = () => {
-  const { coinId } = useOutletContext<IChartProps>();
+  const { coinId, isDark } = useOutletContext<IChartProps>();
   const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () =>
     fetchCoinHistory(coinId!)
   );
@@ -47,7 +48,7 @@ const Chart = () => {
             },
           ]}
           options={{
-            theme: { mode: 'dark' }, //
+            theme: { mode: isDark ? 'dark' : 'light' }, //
             chart: {
               height: '100%', //
               width: '300px', //

@@ -7,24 +7,19 @@ import { ThemeProvider } from 'styled-components';
 import { DarkTheme, LightTheme } from './common/theme';
 
 const App = () => {
-  const [theme, setTheme] = useState<boolean>();
-  const [themeIcon, setThemeIcon] = useState<boolean>();
-
-  useEffect(() => {
-    setTheme(false);
-    setThemeIcon(false);
-  }, []);
+  const [isDark, setIsDark] = useState<boolean>(true);
+  const [themeIcon, setThemeIcon] = useState<boolean>(true);
 
   const changeTheme = () => {
     setThemeIcon((current) => !current);
-    setTheme((current) => !current);
+    setIsDark((current) => !current);
   };
 
   return (
-    <ThemeProvider theme={theme ? DarkTheme : LightTheme}>
+    <ThemeProvider theme={isDark ? DarkTheme : LightTheme}>
       <GlobalStyle />
       <HelmetProvider>
-        <Router changeTheme={changeTheme} themeIcon={themeIcon!} />
+        <Router changeTheme={changeTheme} themeIcon={themeIcon!} isDark={isDark!} />
       </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </ThemeProvider>

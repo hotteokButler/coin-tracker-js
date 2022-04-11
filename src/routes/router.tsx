@@ -7,13 +7,17 @@ import Price from './price';
 interface IRouterProps {
   changeTheme: () => void;
   themeIcon: boolean;
+  isDark: boolean;
 }
 
-const Router = ({ changeTheme, themeIcon }: IRouterProps) => {
+const Router = ({ changeTheme, themeIcon, isDark }: IRouterProps) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/:coinId" element={<Coin />}>
+        <Route
+          path="/:coinId"
+          element={<Coin isDark={isDark} changeTheme={changeTheme} themeIcon={themeIcon} />}
+        >
           <Route path="/:coinId/price" element={<Price />} />
           <Route path="/:coinId/chart" element={<Chart />} />
         </Route>

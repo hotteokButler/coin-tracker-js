@@ -112,9 +112,10 @@ interface ICoin {
   type: string;
 }
 
-interface ICoinsProps {
+export interface ICoinsProps {
   changeTheme: () => void;
   themeIcon: boolean;
+  isDark?: boolean;
 }
 const Coins = ({ changeTheme, themeIcon }: ICoinsProps) => {
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
