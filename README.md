@@ -1,6 +1,6 @@
 # Coin-Tracker
 
-[데모] <a href="https://625143894272256794ef2253--coin-traker.netlify.app/" target="_blank">Coin Traket v01.00</a>
+[데모] <a href="https://62542f485c2ff559cdad5924--coin-traker.netlify.app" target="_blank">Coin Traket v01.00</a>
 
 ## skills
 
