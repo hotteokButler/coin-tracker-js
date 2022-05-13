@@ -18,5 +18,3 @@ root.render(
     </RecoilRoot>
   </React.StrictMode>
 );
-
-export default App;
