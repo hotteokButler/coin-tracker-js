@@ -57,5 +57,5 @@
   "devDependencies": {
     "@types/react-helmet": "^6.1.5"
   },
-  "homepage": "https://github.com/hotteokButler/coin-tracker-js/"
+  "homepage": "https://hotteokbutler.github.io/coin-tracker-js/"
 }

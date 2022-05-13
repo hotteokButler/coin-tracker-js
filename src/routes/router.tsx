@@ -7,7 +7,7 @@ import Price from './price';
 
 const RouterRoot = () => {
   return (
-    <HashRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/:coinId" element={<Coin />}>
           <Route path="/:coinId/price" element={<Price />} />
@@ -15,7 +15,7 @@ const RouterRoot = () => {
         </Route>
         <Route path="/" element={<Coins />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
