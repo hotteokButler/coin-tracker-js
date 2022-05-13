@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/https://github.com/hotteokButler/coin-tracker-js/static/js/main.dd095bce.js",
-    "index.html": "/https://github.com/hotteokButler/coin-tracker-js/index.html",
-    "main.dd095bce.js.map": "/https://github.com/hotteokButler/coin-tracker-js/static/js/main.dd095bce.js.map"
+    "main.js": "/hotteokButler/coin-tracker-js/static/js/main.d739f5fc.js",
+    "index.html": "/hotteokButler/coin-tracker-js/index.html",
+    "main.d739f5fc.js.map": "/hotteokButler/coin-tracker-js/static/js/main.d739f5fc.js.map"
   },
   "entrypoints": [
-    "static/js/main.dd095bce.js"
+    "static/js/main.d739f5fc.js"
   ]
 }
