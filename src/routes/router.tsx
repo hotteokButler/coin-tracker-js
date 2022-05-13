@@ -1,12 +1,13 @@
+import { HashRouter } from 'react-router-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Chart from './chart';
 import Coin from './coin';
 import Coins from './coins';
 import Price from './price';
 
-const Router = () => {
+const RouterRoot = () => {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/:coinId" element={<Coin />}>
           <Route path="/:coinId/price" element={<Price />} />
@@ -14,10 +15,10 @@ const Router = () => {
         </Route>
         <Route path="/" element={<Coins />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
 // 경로를 변수로 접근시 :변수 사용
 
-export default Router;
+export default RouterRoot;
